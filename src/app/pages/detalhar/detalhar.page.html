@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+          text="Voltar">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>detalhes do Contato</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>Habilitar Edição</ion-label>
+    <ion-toggle color="primary" [(ngModel)]="_editar"></ion-toggle>
+
+  </ion-item>
+  <form [formGroup]="_formDetalhar" (ngSubmit)="submitForm()" novalidate>
+    
+    <ion-item-divider color="primary" class="ion-margin-top">
+      <ion-label>
+        Dados Pessoais
+      </ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-label position="floating">Nome:</ion-label>
+      <ion-input type="text" formControlName="nome" disabled="{{!_editar}}"></ion-input>
+    </ion-item>
+    <span *ngIf="_isSubmited && errorControl.nome.errors?.required">
+      Nome é obrigatório
+    </span>
+    <span *ngIf="_isSubmited && errorControl.nome.errors?.minLength">
+      É necessário preencher o nome completo
+    </span>
+    
+    <ion-item>
+      <ion-label position="floating">Telefone celular:</ion-label>
+      <ion-input type="tel" formControlName="telefone" disabled="{{!_editar}}"></ion-input>
+    </ion-item>
+    <span *ngIf="_isSubmited && errorControl.telefone.errors?.required">
+      Telefone é obrigatório
+    </span>
+    <span *ngIf="_isSubmited && errorControl.nome.errors?.minLength">
+      É necessário preencher o telefone com DDD
+    </span>
+    <ion-item>
+      <ion-select placeholder="Sexo" formControlName="sexo" disabled="{{!_editar}}">
+        <ion-select-option value="">Selecione</ion-select-option>
+        <ion-select-option value="f">Feminino</ion-select-option>
+        <ion-select-option value="m">Masculino</ion-select-option>
+        <ion-select-option value="n">Não Declarado</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <span *ngIf="_isSubmited && errorControl.sexo.errors?.required">
+      Sexo é obrigatório
+    </span>
+    <ion-item>
+      <ion-datetime formControlName="data_nascimento" placeholder="Data de Nascimento" displayFormat="DD/MM/YYYY" min="1900-03-14" max="2021-26-08" disabled="{{!_editar}}"></ion-datetime>
+    </ion-item>
+    <span *ngIf="_isSubmited && errorControl.data_nascimento.errors?.required">
+      Data de nascimento é obrigatório
+    </span>
+    <ion-row class="ion-justify-content-center">
+      <section class="ion-margin-top">
+        <ion-col size="3">
+          <ion-button disabled="{{!_editar}}" size="default" strong="true" color="success" type="submit">Editar
+            <ion-icon slot="end" name="create"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="3">
+          <ion-button disabled="{{!_editar}}" size="default" strong="true" color="danger" (click)="excluir()">Excluir
+            <ion-icon slot="end" name="trash"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </section>
+    </ion-row>
+  </form>  
+  
+</ion-content>

@@ -1,0 +1,20 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-button color="primary" (click)="logout()">Sair</ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>Seja bem vindo {{this._user?.email}}</ion-item>
+  <ion-list>
+    <ion-item-group *ngFor="let contato of _contatos">
+      <ion-item (click)="irParaDetalhar(contato)"><h2>{{contato.getNome()}}</h2></ion-item>
+    </ion-item-group>
+  </ion-list>
+  
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="primary" (click)="irParaCadastrar()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
